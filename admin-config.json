@@ -1,0 +1,53 @@
+{
+  "tabs": [
+    {
+      "id": "mode",
+      "label": "Mode",
+      "fields": [
+        { "key": "sandbox", "label": "Sandbox (test) mode", "component": "checkbox" }
+      ]
+    },
+    {
+      "id": "countries",
+      "label": "Country credentials",
+      "description": "Mercado Pago issues one access-token per country app. Enable each country you serve.",
+      "fields": [
+        { "key": "countries.BR.enabled", "label": "Brazil enabled", "component": "checkbox" },
+        { "key": "countries.BR.access_token", "label": "BR access token", "component": "input", "inputType": "password" },
+        { "key": "countries.BR.public_key", "label": "BR public key", "component": "input", "inputType": "text" },
+        { "key": "countries.BR.webhook_secret", "label": "BR webhook secret", "component": "input", "inputType": "password" },
+        { "key": "countries.MX.enabled", "label": "Mexico enabled", "component": "checkbox" },
+        { "key": "countries.MX.access_token", "label": "MX access token", "component": "input", "inputType": "password" },
+        { "key": "countries.MX.public_key", "label": "MX public key", "component": "input", "inputType": "text" },
+        { "key": "countries.MX.webhook_secret", "label": "MX webhook secret", "component": "input", "inputType": "password" },
+        { "key": "countries.AR.enabled", "label": "Argentina enabled", "component": "checkbox" },
+        { "key": "countries.AR.access_token", "label": "AR access token", "component": "input", "inputType": "password" },
+        { "key": "countries.CO.enabled", "label": "Colombia enabled", "component": "checkbox" },
+        { "key": "countries.CO.access_token", "label": "CO access token", "component": "input", "inputType": "password" },
+        { "key": "countries.CL.enabled", "label": "Chile enabled", "component": "checkbox" },
+        { "key": "countries.CL.access_token", "label": "CL access token", "component": "input", "inputType": "password" },
+        { "key": "countries.UY.enabled", "label": "Uruguay enabled", "component": "checkbox" },
+        { "key": "countries.UY.access_token", "label": "UY access token", "component": "input", "inputType": "password" },
+        { "key": "countries.PE.enabled", "label": "Peru enabled", "component": "checkbox" },
+        { "key": "countries.PE.access_token", "label": "PE access token", "component": "input", "inputType": "password" }
+      ]
+    },
+    {
+      "id": "installments",
+      "label": "Installments",
+      "fields": [
+        { "key": "max_installments", "label": "Max installments", "component": "input", "inputType": "number" },
+        { "key": "pass_interest_to_buyer", "label": "Pass interest to buyer", "component": "checkbox" }
+      ]
+    },
+    {
+      "id": "expiry",
+      "label": "Voucher expiry",
+      "fields": [
+        { "key": "boleto_expiry_days", "label": "Boleto expiry (days)", "component": "input", "inputType": "number" },
+        { "key": "oxxo_expiry_days", "label": "OXXO expiry (days)", "component": "input", "inputType": "number" },
+        { "key": "spei_expiry_days", "label": "SPEI expiry (days)", "component": "input", "inputType": "number" }
+      ]
+    }
+  ]
+}

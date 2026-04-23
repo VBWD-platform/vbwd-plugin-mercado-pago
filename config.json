@@ -1,0 +1,42 @@
+{
+  "sandbox": {
+    "type": "boolean",
+    "default": true,
+    "description": "Use Mercado Pago sandbox credentials"
+  },
+  "default_country": {
+    "type": "string",
+    "default": "BR",
+    "description": "Default country when the payer doesn't pick one"
+  },
+  "max_installments": {
+    "type": "integer",
+    "default": 12,
+    "description": "Upper bound on parcelamento/MSI installment count"
+  },
+  "min_installments": {
+    "type": "integer",
+    "default": 1,
+    "description": "Lower bound (usually 1 = pay-in-full)"
+  },
+  "pass_interest_to_buyer": {
+    "type": "boolean",
+    "default": false,
+    "description": "Whether interest on installments is paid by the buyer"
+  },
+  "boleto_expiry_days": {
+    "type": "integer",
+    "default": 3,
+    "description": "Days before an issued Boleto expires"
+  },
+  "oxxo_expiry_days": {
+    "type": "integer",
+    "default": 3,
+    "description": "Days before an issued OXXO voucher expires"
+  },
+  "spei_expiry_days": {
+    "type": "integer",
+    "default": 1,
+    "description": "Days before an issued SPEI CLABE expires"
+  }
+}
