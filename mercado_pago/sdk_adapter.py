@@ -67,9 +67,7 @@ class MercadoPagoSDKAdapter(BaseSDKAdapter):
     ) -> SDKResponse:
         return SDKResponse(
             success=False,
-            error=(
-                "Mercado Pago captures on user redirect; use get_payment_status"
-            ),
+            error=("Mercado Pago captures on user redirect; use get_payment_status"),
         )
 
     def release_authorization(self, payment_intent_id: str) -> SDKResponse:
@@ -140,9 +138,7 @@ class MercadoPagoSDKAdapter(BaseSDKAdapter):
         payload: Dict[str, Any] = {}
         if amount is not None:
             payload["amount"] = float(amount)
-        return self._post(
-            f"/v1/payments/{payment_intent_id}/refunds", payload
-        )
+        return self._post(f"/v1/payments/{payment_intent_id}/refunds", payload)
 
     def verify_webhook(self, payload: bytes, signature: str) -> bool:
         """Verify Mercado Pago webhook signature header.
@@ -191,9 +187,7 @@ class MercadoPagoSDKAdapter(BaseSDKAdapter):
         try:
             body = resp.json()
         except ValueError:
-            return SDKResponse(
-                success=False, error="invalid JSON from Mercado Pago"
-            )
+            return SDKResponse(success=False, error="invalid JSON from Mercado Pago")
         if resp.status_code >= 400:
             return SDKResponse(
                 success=False,

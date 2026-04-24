@@ -107,9 +107,7 @@ class TestVerifyWebhook:
         import hmac
 
         body = b'{"type":"payment"}'
-        signature = hmac.new(
-            b"whsec-br-abc", body, hashlib.sha256
-        ).hexdigest()
+        signature = hmac.new(b"whsec-br-abc", body, hashlib.sha256).hexdigest()
         assert adapter_br.verify_webhook(body, signature) is True
 
     def test_rejects_wrong_signature(self, adapter_br):

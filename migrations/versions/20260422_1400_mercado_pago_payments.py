@@ -33,7 +33,9 @@ def upgrade() -> None:
         sa.Column("amount", sa.Numeric(14, 2), nullable=False),
         sa.Column("currency", sa.String(length=3), nullable=False),
         sa.Column("installments", sa.Integer(), nullable=True),
-        sa.Column("status", sa.String(length=24), nullable=False, server_default="pending"),
+        sa.Column(
+            "status", sa.String(length=24), nullable=False, server_default="pending"
+        ),
         sa.Column("last_provider_status", sa.String(length=32), nullable=True),
         sa.Column("extra_data", sa.JSON(), nullable=True),
         sa.Column(
@@ -64,10 +66,6 @@ def upgrade() -> None:
 
 
 def downgrade() -> None:
-    op.drop_index(
-        "ix_mp_payments_mp_payment_id", table_name="mercado_pago_payments"
-    )
-    op.drop_index(
-        "ix_mp_payments_country", table_name="mercado_pago_payments"
-    )
+    op.drop_index("ix_mp_payments_mp_payment_id", table_name="mercado_pago_payments")
+    op.drop_index("ix_mp_payments_country", table_name="mercado_pago_payments")
     op.drop_table("mercado_pago_payments")

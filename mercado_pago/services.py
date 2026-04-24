@@ -125,11 +125,7 @@ class MercadoPagoWebhookHandler:
         self._service = service or MercadoPagoService()
 
     def handle(self, payload: Dict[str, Any]) -> MercadoPagoPayment:
-        invoice_no = payload.get("external_reference") or payload.get(
-            "invoice_no"
-        )
+        invoice_no = payload.get("external_reference") or payload.get("invoice_no")
         if not invoice_no:
-            raise ValueError(
-                "missing external_reference in Mercado Pago webhook"
-            )
+            raise ValueError("missing external_reference in Mercado Pago webhook")
         return self._service.apply_provider_update(invoice_no, payload)

@@ -43,9 +43,7 @@ class TestInstallmentPlans:
         assert plans == [1, 3, 6, 9, 12]
 
     def test_mx_non_msi_brand_single_payment(self):
-        plans = compute_installment_plans(
-            Decimal("1200"), "MX", card_brand="carnet"
-        )
+        plans = compute_installment_plans(Decimal("1200"), "MX", card_brand="carnet")
         assert plans == [1]
 
     def test_andean_capped_at_6(self):
@@ -61,7 +59,9 @@ class TestInstallmentPlans:
 class TestService:
     def test_record_preference_created(self):
         session = MagicMock()
-        session.query.return_value.filter_by.return_value.one_or_none.return_value = None
+        session.query.return_value.filter_by.return_value.one_or_none.return_value = (
+            None
+        )
         service = MercadoPagoService(session=session)
 
         payment = service.record_preference_created(
@@ -87,12 +87,12 @@ class TestService:
         existing.last_provider_status = None
         existing.mp_payment_id = None
         session = MagicMock()
-        session.query.return_value.filter_by.return_value.one_or_none.return_value = existing
+        session.query.return_value.filter_by.return_value.one_or_none.return_value = (
+            existing
+        )
 
         service = MercadoPagoService(session=session)
-        service.apply_provider_update(
-            "INV-1", {"status": "approved", "id": 987654}
-        )
+        service.apply_provider_update("INV-1", {"status": "approved", "id": 987654})
 
         assert existing.status == "completed"
         assert existing.last_provider_status == "approved"
@@ -105,12 +105,12 @@ class TestService:
         existing.last_provider_status = "approved"
         existing.mp_payment_id = "987654"
         session = MagicMock()
-        session.query.return_value.filter_by.return_value.one_or_none.return_value = existing
+        session.query.return_value.filter_by.return_value.one_or_none.return_value = (
+            existing
+        )
 
         service = MercadoPagoService(session=session)
-        service.apply_provider_update(
-            "INV-1", {"status": "approved", "id": 987654}
-        )
+        service.apply_provider_update("INV-1", {"status": "approved", "id": 987654})
         session.commit.assert_not_called()
 
 
@@ -123,9 +123,7 @@ class TestWebhookHandler:
     def test_accepts_external_reference(self):
         svc = MagicMock()
         handler = MercadoPagoWebhookHandler(service=svc)
-        handler.handle(
-            {"external_reference": "INV-1", "status": "approved", "id": 1}
-        )
+        handler.handle({"external_reference": "INV-1", "status": "approved", "id": 1})
         svc.apply_provider_update.assert_called_once()
 
     def test_fallback_to_invoice_no_alias(self):
