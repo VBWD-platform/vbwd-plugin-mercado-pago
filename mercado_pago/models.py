@@ -1,12 +1,11 @@
 """Mercado Pago payment record — one per invoice with country context."""
-from datetime import datetime, timezone
-
-from sqlalchemy import Column, DateTime, Integer, Numeric, String
+from sqlalchemy import Column, Integer, Numeric, String
 
 from vbwd.extensions import db
+from vbwd.models.base import TzAwareTimestampMixin
 
 
-class MercadoPagoPayment(db.Model):
+class MercadoPagoPayment(TzAwareTimestampMixin, db.Model):
     __tablename__ = "mercado_pago_payments"
 
     id = Column(
@@ -25,17 +24,7 @@ class MercadoPagoPayment(db.Model):
     status = Column(String(24), nullable=False, default="pending")
     last_provider_status = Column(String(32), nullable=True)
     extra_data = Column(db.JSON, nullable=True)
-    created_at = Column(
-        DateTime(timezone=True),
-        nullable=False,
-        default=lambda: datetime.now(timezone.utc),
-    )
-    updated_at = Column(
-        DateTime(timezone=True),
-        nullable=False,
-        default=lambda: datetime.now(timezone.utc),
-        onupdate=lambda: datetime.now(timezone.utc),
-    )
+    # created_at / updated_at provided by TzAwareTimestampMixin (S20).
 
     def to_dict(self) -> dict:
         return {

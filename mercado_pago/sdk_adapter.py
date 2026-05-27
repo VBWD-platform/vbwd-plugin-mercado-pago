@@ -7,6 +7,7 @@ from typing import Any, Dict, Optional
 import requests
 
 from vbwd.sdk.base import BaseSDKAdapter
+from vbwd.sdk.errors import UnsupportedOperationError
 from vbwd.sdk.interface import SDKConfig, SDKResponse
 
 
@@ -65,15 +66,15 @@ class MercadoPagoSDKAdapter(BaseSDKAdapter):
         payment_intent_id: str,
         idempotency_key: Optional[str] = None,
     ) -> SDKResponse:
-        return SDKResponse(
-            success=False,
-            error=("Mercado Pago captures on user redirect; use get_payment_status"),
+        # S11 — Liskov: signal structural inability with an exception, not a
+        # soft success=False (which callers retry).
+        raise UnsupportedOperationError(
+            "Mercado Pago captures on user redirect; use get_payment_status"
         )
 
     def release_authorization(self, payment_intent_id: str) -> SDKResponse:
-        return SDKResponse(
-            success=False,
-            error="Mercado Pago preferences do not support release",
+        raise UnsupportedOperationError(
+            "Mercado Pago preferences do not support release"
         )
 
     def get_payment_status(self, payment_intent_id: str) -> SDKResponse:

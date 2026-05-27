@@ -118,10 +118,20 @@ class TestVerifyWebhook:
 
 
 class TestLiskov:
-    def test_capture_returns_unsupported(self, adapter_br):
-        resp = adapter_br.capture_payment("PAY-1")
-        assert resp.success is False
+    def test_capture_raises_unsupported(self, adapter_br):
+        """S11 — Mercado Pago doesn't support deferred capture; the adapter
+        must raise UnsupportedOperationError (not return success=False)."""
+        import pytest
 
-    def test_release_returns_unsupported(self, adapter_br):
-        resp = adapter_br.release_authorization("PAY-1")
-        assert resp.success is False
+        from vbwd.sdk.errors import UnsupportedOperationError
+
+        with pytest.raises(UnsupportedOperationError):
+            adapter_br.capture_payment("PAY-1")
+
+    def test_release_raises_unsupported(self, adapter_br):
+        import pytest
+
+        from vbwd.sdk.errors import UnsupportedOperationError
+
+        with pytest.raises(UnsupportedOperationError):
+            adapter_br.release_authorization("PAY-1")
