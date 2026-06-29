@@ -15,7 +15,7 @@ class TestMercadoPagoPlugin:
     def test_metadata(self):
         plugin = MercadoPagoPlugin()
         assert plugin.metadata.name == "mercado_pago"
-        assert plugin.metadata.version == "26.6"
+        assert plugin.metadata.version == "26.6.1"
 
     def test_initialize_deep_merges_country_config(self):
         plugin = MercadoPagoPlugin()
