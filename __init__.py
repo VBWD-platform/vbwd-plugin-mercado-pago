@@ -58,7 +58,7 @@ class MercadoPagoPlugin(PaymentProviderPlugin):
     def metadata(self) -> PluginMetadata:
         return PluginMetadata(
             name="mercado_pago",
-            version="26.6",
+            version="26.6.1",
             author="VBWD Team",
             description=(
                 "Mercado Pago — regional LATAM PSP covering Pix, Boleto, "
