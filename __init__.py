@@ -3,7 +3,7 @@ from typing import Optional, Dict, Any, TYPE_CHECKING
 from decimal import Decimal
 from uuid import UUID
 
-from vbwd.plugins.base import PluginMetadata
+from vbwd.plugins.base import PluginMetadata, PublicRouteDeclaration
 from vbwd.plugins.payment_provider import (
     PaymentProviderPlugin,
     PaymentResult,
@@ -72,6 +72,14 @@ class MercadoPagoPlugin(PaymentProviderPlugin):
     def initialize(self, config: Optional[Dict[str, Any]] = None) -> None:
         merged = _deep_merge(DEFAULT_CONFIG, config or {})
         super().initialize(merged)
+
+    def declare_public_routes(self) -> PublicRouteDeclaration:
+        """Public Mercado Pago provider webhook (verified by provider signature)."""
+        return PublicRouteDeclaration(
+            mutation={
+                "/api/v1/plugins/mercado-pago/webhooks/<country>": "Mercado Pago webhook; provider-signature verified.",
+            },
+        )
 
     def get_blueprint(self) -> Optional["Blueprint"]:
         from plugins.mercado_pago.mercado_pago.routes import mp_plugin_bp
