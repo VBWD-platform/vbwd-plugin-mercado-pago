@@ -1,0 +1,42 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "vbwd-plugin-mercado-pago"
+version = "26.6.1"
+description = "VBWD backend plugin: mercado_pago"
+requires-python = ">=3.11"
+license = { text = "BSL-1.1" }
+dependencies = []
+
+# Runtime lives inside the vbwd-backend host, which provides `vbwd.*` (core) and
+# any sibling plugins declared in PluginMetadata.dependencies. Those are NOT pinned
+# here so the wheel stays host-agnostic; install the host separately.
+
+[tool.setuptools]
+# The repo root IS the plugins/mercado_pago/ directory; remap it so the wheel exposes
+# the `plugins.mercado_pago` package that runtime imports (e.g. `from plugins.mercado_pago...`).
+package-dir = { "plugins.mercado_pago" = "." }
+packages = [
+    "plugins.mercado_pago",
+    "plugins.mercado_pago.mercado_pago",
+]
+
+[tool.setuptools.package-data]
+# Ship everything a pip-installed plugin needs to be self-complete: config JSON,
+# Alembic migrations (the shared backend env.py resolves version_locations from
+# the installed package path), seed scripts, and bin/ helpers.
+"plugins.mercado_pago" = [
+    "*.json",
+    "migrations/*.py",
+    "migrations/*.mako",
+    "migrations/*.ini",
+    "migrations/**/*.py",
+    "migrations/**/*.mako",
+    "populate_db.py",
+    "populate_*.py",
+    "demo_seed.py",
+    "bin/*",
+    "bin/**/*",
+]
